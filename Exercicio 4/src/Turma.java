@@ -5,11 +5,11 @@ public class Turma {
     private int vagasTotais;
     private boolean aberta;
 
-    public Turma(String nome, String codigo) {
-        this.nomeCurso = nome;
-        this.codigoTurma = codigo;
+    public Turma(String nome, String codigo, int vagasTotais) {
+        this.setNomeCurso(nome);
+        this.setCodigoTurma(codigo);
         this.qtdAlunos = 0;
-        this.vagasTotais = 30;
+        this.setVagasTotais(vagasTotais);
         this.aberta = true;
     }
 
@@ -18,7 +18,7 @@ public class Turma {
     }
 
     public void setNomeCurso(String nome) {
-        this.nomeCurso = nome.trim().toUpperCase();
+        this.nomeCurso = nome.toUpperCase();
     }
 
     public String getCodigoTurma() {
@@ -34,7 +34,13 @@ public class Turma {
     }
 
     public void setQtdAlunos(int qtdAlunos) {
-        this.qtdAlunos = qtdAlunos;
+        if (qtdAlunos > vagasTotais) {
+            System.out.println("Erro: a quantidade de alunos não pode ser maior que a quantidade de vagas!");
+        } else if (qtdAlunos < 0) {
+            System.out.println("Erro: a quantidade de alunos não pode ser negativa!");
+        } else {
+            this.qtdAlunos = qtdAlunos;
+        }
     }
 
     public int getVagasTotais() {
@@ -42,7 +48,12 @@ public class Turma {
     }
 
     public void setVagasTotais(int vagasTotais) {
-        this.vagasTotais = vagasTotais;
+        if (vagasTotais <= 0) {
+            System.out.println("Erro: a quantidade de vagas não pode ser zero ou negativa! Definindo 10 como padrão.");
+            this.vagasTotais = 10;
+        } else {
+            this.vagasTotais = vagasTotais;
+        }
     }
 
     public boolean isAberta() {
@@ -53,8 +64,25 @@ public class Turma {
         this.aberta = aberta;
     }
 
-    public void informacoes(){
+    public void matricularAluno() {
+        if (this.isAberta() && this.getQtdAlunos() < this.getVagasTotais()) {
+            this.qtdAlunos++;
+            if (this.getQtdAlunos() == this.getVagasTotais()) {
+                this.aberta = false;
+                System.out.println("Número máximo de alunos alcançado!");
+            } else {
+                System.out.println("Matrícula realizada com sucesso!");
+            }
+        } else {
+            System.out.println("Matrícula recusada: Turma fechada ou lotada!");
+        }
+    }
+
+    public void exibirStatus() {
         System.out.println("Nome do curso: " + this.getNomeCurso());
         System.out.println("Código da turma: " + this.getCodigoTurma());
+        System.out.println("Quantidade de vagas: " + this.getVagasTotais());
+        System.out.println("Quantidade de alunos: " + this.getQtdAlunos());
+        System.out.println("Matrícula disponível: " + (this.isAberta() ? "Sim" : "Não"));
     }
 }
