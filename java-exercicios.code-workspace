@@ -1,0 +1,14 @@
+{
+    "folders": [
+        { "path": "Exercicio 2" },
+        { "path": "Exercicio 3" },
+        { "path": "Exercicio 4" },
+        { "path": "Exercicio 6" },
+        { "path": "Hello, Word" }
+    ],
+    "settings": {
+        "files.readonlyInclude": [],
+        "files.readonlyExclude": ["**/*.java"],
+        "files.readonlyFromPermissions": false
+    }
+}
